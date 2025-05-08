@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big X Business Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a2a1a, #22c55e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 400px;
+            width: 90%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        .card:focus-within {
+            box-shadow: 0 0 0 3px #22c55e;
+        }
+        .cover-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 4px solid #22c55e;
+        }
+        .header {
+            background: #1a2a1a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #22c55e;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .header img:hover {
+            transform: scale(1.1);
+        }
+        .contact-info {
+            padding: 2rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateY(0) scale(1.05);
+            background: #f0fdf4;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+        }
+        .contact-item i {
+            color: #22c55e;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .contact-item:hover i {
+            color: #15803d;
+        }
+        .contact-item a, .contact-item span {
+            color: #166534;
+            transition: color 0.3s ease;
+        }
+        .contact-item a:hover, .contact-item span:hover {
+            color: #22c55e;
+        }
+        .contact-item a:focus, .contact-item button:focus {
+            outline: 2px solid #22c55e;
+            outline-offset: 2px;
+        }
+        .copy-btn {
+            margin-left: 0.5rem;
+            background: #22c55e;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+            font-size: 0.9rem;
+        }
+        .copy-btn:hover {
+            background: #15803d;
+        }
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        .barcode-container {
+            text-align: center;
+            padding: 1rem;
+            background: #f0fdf4;
+            position: relative;
+        }
+        .barcode-container canvas {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        .barcode-container canvas:hover {
+            transform: scale(1.1);
+        }
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #22c55e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @media (max-width: 640px) {
+            .card {
+                width: 95%;
+            }
+            .header img {
+                width: 80px;
+                height: 80px;
+            }
+            .cover-image {
+                height: 120px;
+            }
+            .contact-item i {
+                font-size: 1.2rem;
+            }
+            .contact-item {
+                flex-wrap: wrap;
+            }
+            .copy-btn {
+                margin-top: 0.5rem;
+            }
+        }
+        .slide-in {
+            animation: slideIn 0.8s ease-out forwards;
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card" tabindex="0">
+        <img src="bigx.jpg" alt="Big X Fashion Cover Image showcasing brand style" class="cover-image" id="coverImage">
+        <div class="header">
+            <img src="bigx.jpg" alt="Big X Fashion Logo" id="logoImage">
+            <h1 class="text-3xl font-bold">BiigX Franchise</h1>
+            <p class="text-lg">Your Trusted Fabrics Republic</p>
+        </div>
+        <div class="contact-info">
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                <a href="https://www.instagram.com/biig_x" target="_blank" class="hover:underline" aria-label="Instagram: @biig_x">@biig_x</a>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                <a href="https://x.com/biigxfashion" target="_blank" class="hover:underline" aria-label="X: @biigxfashion">@biigxfashion</a>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <span>Odgbiigx@gmail.com</span>
+                <button class="copy-btn" data-copy="Odgbiigx@gmail.com" aria-label="Copy email address">Copy</button>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <a href="https://wa.me/2349066974548" target="_blank" class="hover:underline" aria-label="WhatsApp: +234 906 697 4548">+234 906 697 4548</a>
+                <button class="copy-btn" data-copy="+2349066974548" aria-label="Copy WhatsApp number">Copy</button>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <a href="tel:+2348121053877" class="hover:underline" aria-label="Phone: +234 812 105 3877">+234 812 105 3877</a>
+                <button class="copy-btn" data-copy="+2348121053877" aria-label="Copy phone number">Copy</button>
+            </div>
+        </div>
+        <div class="barcode-container">
+            <div class="loading-spinner" id="qr-spinner"></div>
+            <canvas id="qr-code" aria-label="QR code linking to Big X Fashion website"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update images with the provided image
+            const coverImage = document.getElementById('coverImage');
+            const logoImage = document.getElementById('logoImage');
+            const imgUrl = 'bigx.jpg'; // Replace with the actual hosted image URL
+            coverImage.src = imgUrl;
+            logoImage.src = imgUrl;
+
+            const qrSpinner = document.getElementById('qr-spinner');
+            qrSpinner.style.display = 'block';
+            QRCode.toCanvas(document.getElementById('qr-code'), 'https://biigx.com', {
+                width: 200,
+                color: { dark: '#1a2a1a', light: '#ffffff' }
+            }, (error) => {
+                qrSpinner.style.display = 'none';
+                if (error) console.error('QR Code generation failed:', error);
+            });
+
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('slide-in');
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            const card = document.querySelector('.card');
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(1.03)';
+                card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.5)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                    card.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.3)';
+                }, 150);
+            });
+
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const text = button.getAttribute('data-copy');
+                    navigator.clipboard.writeText(text).then(() => {
+                        button.textContent = 'Copied!';
+                        button.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+
+                            button.style.transform = 'scale(1)';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Copy failed:', err);
+                    });
+                });
+            });
+
+            const links = document.querySelectorAll('.contact-item a');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.open(link.href, '_blank');
+                });
+            });
+
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
