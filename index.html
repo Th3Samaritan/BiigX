@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <link rel="icon" type="image/png" href="bigx.jpg" id="favicon">
     <style>
         body {
             background: linear-gradient(135deg, #1a2a1a, #22c55e);
@@ -81,6 +82,8 @@
             margin-right: 1rem;
             font-size: 1.5rem;
             transition: color 0.3s ease;
+            width: 24px;
+            text-align: center;
         }
         .contact-item:hover i {
             color: #15803d;
@@ -153,6 +156,7 @@
             }
             .contact-item i {
                 font-size: 1.2rem;
+                width: 20px;
             }
             .contact-item {
                 flex-wrap: wrap;
@@ -178,9 +182,9 @@
     <div class="card" tabindex="0">
         <img src="bigx.jpg" alt="Big X Fashion Cover Image showcasing brand style" class="cover-image" id="coverImage">
         <div class="header">
-            <img src="bigx.jpg" alt="Big X Fashion Logo" id="logoImage">
-            <h1 class="text-3xl font-bold">BiigX Franchise</h1>
-            <p class="text-lg">Your Trusted Fabrics Republic</p>
+            <img src="https://example.com/bigx-image.jpg" alt="Big X Fashion Logo" id="logoImage">
+            <h1 class="text-3xl font-bold">Big X Fashion</h1>
+            <p class="text-lg">Your Trusted Fashion Franchise</p>
         </div>
         <div class="contact-info">
             <div class="contact-item" role="listitem">
@@ -188,8 +192,20 @@
                 <a href="https://www.instagram.com/biig_x" target="_blank" class="hover:underline" aria-label="Instagram: @biig_x">@biig_x</a>
             </div>
             <div class="contact-item" role="listitem">
-                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                <i class="fab fa-x" aria-hidden="true"></i>
                 <a href="https://x.com/biigxfashion" target="_blank" class="hover:underline" aria-label="X: @biigxfashion">@biigxfashion</a>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
+                <a href="https://www.facebook.com/biigxfashion" target="_blank" class="hover:underline" aria-label="Facebook: Big X Fashion">Big X Fashion</a>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-snapchat" aria-hidden="true"></i>
+                <a href="https://www.snapchat.com/biigxfashion" target="_blank" class="hover:underline" aria-label="Snapchat: @biigxfashion">@biigxfashion</a>
+            </div>
+            <div class="contact-item" role="listitem">
+                <i class="fab fa-tiktok" aria-hidden="true"></i>
+                <a href="https://www.tiktok.com/@biigxfashion" target="_blank" class="hover:underline" aria-label="TikTok: @biigxfashion">@biigxfashion</a>
             </div>
             <div class="contact-item" role="listitem">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
@@ -215,12 +231,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Update images with the provided image
             const coverImage = document.getElementById('coverImage');
             const logoImage = document.getElementById('logoImage');
+            const favicon = document.getElementById('favicon');
             const imgUrl = 'bigx.jpg'; // Replace with the actual hosted image URL
             coverImage.src = imgUrl;
             logoImage.src = imgUrl;
+            favicon.href = imgUrl;
 
             const qrSpinner = document.getElementById('qr-spinner');
             qrSpinner.style.display = 'block';
@@ -261,7 +278,6 @@
                         button.style.transform = 'scale(1.1)';
                         setTimeout(() => {
                             button.textContent = 'Copy';
-
                             button.style.transform = 'scale(1)';
                         }, 2000);
                     }).catch(err => {
